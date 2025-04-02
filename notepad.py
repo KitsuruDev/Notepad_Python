@@ -2,17 +2,16 @@ from random import randint
 from tkinter import *
 from tkinter import filedialog
 from tkinter.ttk import *
-import os
+import os, sys
 
 def onClickKeyF1():
     def onCloseFormRef(): formRef.destroy()
     formRef = Toplevel()
-    formRef.geometry("{}x{}+{}+{}".format(500, 215, (formRef.winfo_screenwidth()-500)//2, (formRef.winfo_screenheight()-285)//2))
+    formRef.geometry("{}x{}+{}+{}".format(425, 115, (formRef.winfo_screenwidth() - 425) // 2, (formRef.winfo_screenheight() - 425) // 2))
     formRef.resizable(False, False)
     formRef.title('О программе')
-    formRef.iconbitmap(os.path.dirname(os.path.realpath(__file__)) + '\\icon.ico')
-    Label(formRef, text="Блокнот - версия 1.0.\n© KitsuruDev, 2024. Все права защищены",
-          font=('Segoe UI', 13)).place(x=8, y=8, width=483, height=200)
+    formRef.iconbitmap(default=os.path.join(application_path, 'icon.ico'))
+    Label(formRef, text="Блокнот - версия 1.0.\n© KitsuruDev, 2024. Все права защищены", font=('Segoe UI', 16)).place(x=8, y=8, width=400, height=92)
     formRef.protocol("WM_DELETE_WINDOW", onCloseFormRef)
     formRef.grab_set()
     formRef.mainloop()
@@ -97,10 +96,12 @@ def onClickCtrlHotKeys(event):
     if event.keycode in dict_hot_keys_translate: eval(dict_hot_keys_translate[event.keycode])
 
 formMain, KeyPriv, KeyOpen, SimpleDigit = Tk(), 0, 0, []
+application_path = sys._MEIPASS if getattr(sys, 'frozen', False) else os.path.dirname(__file__)
+
 LoadCryptoKeys()
 
 formMain.geometry("{}x{}+{}+{}".format(446, 360, (formMain.winfo_screenwidth()-446)//2, (formMain.winfo_screenheight()-360)//2))
-formMain.iconbitmap(os.path.dirname(os.path.realpath(__file__)) + '\\icon.ico')
+formMain.iconbitmap(default=os.path.join(application_path, 'icon.ico'))
 formMain.title('Блокнот')
 
 Style().configure(style=".", background="white", foreground="black", font=('Segoe UI', 10))
